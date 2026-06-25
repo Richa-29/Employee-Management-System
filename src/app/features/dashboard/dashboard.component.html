@@ -1,0 +1,7 @@
+@if(role() === 'admin') {
+ <div>Admin Dashboard</div>
+} @else if(role() === 'manager') {
+    <div>Manager Dashboard</div>
+} @else if(role() === 'employee') {
+    <div>Employee Dashboard</div>
+}

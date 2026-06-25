@@ -1,4 +1,5 @@
-import { Component } from "@angular/core";
+import { Component, computed, inject, OnInit, signal } from "@angular/core";
+import { AuthService } from "../../core/services/auth.service";
 
 @Component ({
     selector: 'app-dashboard',
@@ -7,5 +8,7 @@ import { Component } from "@angular/core";
 })
 
 export class DashboardComponent {
-    
+    private authService = inject(AuthService);
+    role = computed(() => this.authService.role() ?? 'admin'); 
+
 }

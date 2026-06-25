@@ -32,7 +32,7 @@ export class LoginComponent {
     async onSubmit() {
         try {
             await this.authService.login(this.loginForm.value.email ?? '', this.loginForm.value.password ?? '');
-            this.router.navigate(['/dashboard']);
+            this.router.navigate(['/shell']);
         } catch(error) {
             this.error.set('Invalid Credentials');
         }

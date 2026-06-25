@@ -1,1 +1,15 @@
-Sidebar
+<nav>
+    <a routerLink="/shell/dashboard">Dashboard</a>
+    @if (role() === 'admin') {
+        <a routerLink="/shell/employees">Employees</a>
+        <a routerLink="/shell/departments">Departments</a>
+        <a routerLink="/shell/leaves">Leave Management</a>
+        <a routerLink="/shell/reports">Reports</a>
+    } @else if (role() === 'manager') {
+        <a routerLink="/shell/team">My Team</a>
+        <a routerLink="/shell/leaves">Leave Approvals</a>
+    } @else if (role() === 'employee') {
+        <a routerLink="/shell/profile">My Profile</a>
+        <a routerLink="/shell/leaves">My Leaves</a>
+    }
+</nav>

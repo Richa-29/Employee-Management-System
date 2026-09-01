@@ -10,5 +10,5 @@ import { AuthService } from "../../core/services/auth.service";
 export class DashboardComponent {
     private authService = inject(AuthService);
     role = computed(() => this.authService.role() ?? 'admin'); 
-
+    //we have made this computed to handle null values, if null it will be 'admin'
 }

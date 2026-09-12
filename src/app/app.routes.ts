@@ -9,7 +9,7 @@ export const routes: Routes = [
    { path: '', component: LoginComponent },
    { path: 'shell', 
      component: ShellComponent, 
-     canActivate: [authGuard],
+    //  canActivate: [authGuard],
      children: [
       { path: 'dashboard', component: DashboardComponent},
       { path: 'employees', component: EmployeeListComponent },

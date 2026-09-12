@@ -16,10 +16,11 @@ export class EmployeeService {
         'Prefer': 'count=exact'
     });
 
-    getEmployees(page: number, pageSize: number): Observable<{data: Employee[], count: number}> {
+    getEmployees(page: number, pageSize: number, searchTerm: string = ''): Observable<{data: Employee[], count: number}> {
         const from = (page-1)*pageSize;
         const to = (from+pageSize)-1;
-        return this.http.get<Employee[]>(`${this.baseUrl}/employees?select=*,departments(name)`, 
+        const search = searchTerm ? `&full_name=ilike.*${searchTerm}*` : '';
+        return this.http.get<Employee[]>(`${this.baseUrl}/employees?select=*,departments(name)${search}`, 
             {
                 headers: this.headers.set('Range', `${from}-${to}`),
                 observe: 'response'

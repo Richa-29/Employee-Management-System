@@ -1,3 +1,5 @@
+Search: <input [formControl]="searchInput">
+
 @if (isLoading()) {
   <p>Loading...</p>
 } @else if (error()) {
@@ -13,7 +15,7 @@
       </tr>
     </thead>
     <tbody>
-      @for (emp of employees(); track emp.id) {
+      @for (emp of isSearching() ? filteredEmployees() : employees(); track emp.id) {
         <tr>
           <td>{{ emp.full_name }}</td>
           <td>{{ emp.email }}</td>

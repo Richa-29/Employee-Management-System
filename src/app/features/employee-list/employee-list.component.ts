@@ -4,6 +4,7 @@ import { Employee } from '../../core/models/employee.model';
 import { catchError, debounceTime, delay, distinctUntilChanged, forkJoin, interval, of, switchMap, timer } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { FormControl, ReactiveFormsModule } from "@angular/forms";
+import { Router } from "@angular/router";
 
 @Component({
     selector: 'app-employee-list',
@@ -15,6 +16,7 @@ import { FormControl, ReactiveFormsModule } from "@angular/forms";
 })
 
 export class EmployeeListComponent {
+    private router = inject(Router);
     private employeeService = inject(EmployeeService);
   
     employees = signal<Employee[]>([]);
@@ -29,7 +31,7 @@ export class EmployeeListComponent {
 
     searchInput = new FormControl<string>('', { nonNullable: true});
 
-    constructor(private http: HttpClient) {
+    constructor() {
     }
 
     ngOnInit() {
@@ -69,6 +71,10 @@ export class EmployeeListComponent {
     goToPage(page: number) {
         this.currentPage.set(page);
         this.getEmployees();
+    }
+
+    viewEmployee(employee: Employee) {
+        this.router.navigate(['/shell/employees', employee.id])
     }
 }
 

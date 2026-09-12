@@ -1,18 +1,20 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './features/auth/login.component';
 import { DashboardComponent } from './features/dashboard/dashboard.component';
-import { EmployeeListComponent } from './features/employees/employee-list.component';
+import { EmployeeListComponent } from './features/employee-list/employee-list.component';
 import { authGuard } from './core/guards/auth.guard';
 import { ShellComponent } from './shared/layout/shell/shell.component';
+import { EmployeeDetailComponent } from './features/employee-detail/employee-detail.component';
 
 export const routes: Routes = [
    { path: '', component: LoginComponent },
    { path: 'shell', 
      component: ShellComponent, 
-    //  canActivate: [authGuard],
+     canActivate: [authGuard],
      children: [
       { path: 'dashboard', component: DashboardComponent},
       { path: 'employees', component: EmployeeListComponent },
+      { path: 'employees/:id', component: EmployeeDetailComponent },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
      ]
    },

@@ -16,7 +16,7 @@ Search: <input [formControl]="searchInput">
     </thead>
     <tbody>
       @for (emp of isSearching() ? filteredEmployees() : employees(); track emp.id) {
-        <tr>
+        <tr (click)="viewEmployee(emp)">
           <td>{{ emp.full_name }}</td>
           <td>{{ emp.email }}</td>
           <td>{{ emp.role }}</td>

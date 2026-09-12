@@ -30,6 +30,14 @@ export class EmployeeService {
             })));
     }
 
+    getEmployeeById(id: string): Observable<Employee> {
+      return this.http.get<Employee[]>(
+            `${this.baseUrl}/employees?id=eq.${id}&select=*,departments(name)`,
+            { headers: this.headers }
+      ).pipe(
+          map(data => data[0])
+      );
+    }
    
 
 }

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit, signal } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { EmployeeService } from "../../core/services/employee.service";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { Employee } from "../../core/models/employee.model";
@@ -17,6 +17,7 @@ export class EmployeeDetailComponent implements OnInit{
     private activatedRoute = inject(ActivatedRoute);
     private employeeService = inject(EmployeeService);
     private destroyedRef = inject(DestroyRef);
+    private router = inject(Router);
 
     employee = signal<Employee | null>(null);
     isLoading = signal<boolean>(true);
@@ -43,5 +44,9 @@ export class EmployeeDetailComponent implements OnInit{
                 this.isLoading.set(false);
             }
         });
+    }
+
+    editEmployee() {
+        this.router.navigate(['shell/employees/', this.employee()?.id ,'edit'])
     }
 }

@@ -3,6 +3,7 @@ import { Employee } from '../models/employee.model';
 import { environment } from '../../../environments/environment';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { map, Observable } from "rxjs";
+import { Department } from "../models/department.model";
 
 @Injectable({
     providedIn: 'root'
@@ -38,6 +39,19 @@ export class EmployeeService {
           map(data => data[0])
       );
     }
+
+    addEmployee(employee: Partial<Employee>): Observable<Employee> {
+       return this.http.post<Employee>(
+        environment.createEmployeeFn,
+        employee,
+            { 
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${environment.supabaseKey}`
+            })
+        }
+        );
+    } 
    
 
 }

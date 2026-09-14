@@ -1,0 +1,53 @@
+<div class="form-container">
+    <h2>{{ isEditMode() ? 'Edit Employee' : 'Add Employee' }}</h2>
+
+    <form [formGroup]="addEditEmployeeForm" (ngSubmit)="submitForm()">
+    <div class="form-group">
+        <label for="fullname">Full Name</label>
+        <input id="fullName" type="text" formControlName="fullName" placeholder="Enter full name">
+    </div>
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email" type="text" formControlName="email" placeholder="Enter email">
+
+        <!-- @if (email?.invalid && (email?.dirty || email?.touched)) {
+            <small style="color: red;">Please enter a valid email address.</small>
+        } -->
+    </div>
+    @if (!isEditMode()) {
+         <div class="form-group">
+            <label for="password">Password</label>
+            <input id="password" type="password" formControlName="password" placeholder="Enter password">
+         </div>
+    }
+    <div class="form-group">
+        <label for="department">Department</label>
+        <select formControlName="department">
+            <option value="">Select Department</option>
+            @for (dept of departments(); track dept.id) {
+                <option [value]=dept.id>{{ dept.name }}</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="role">Role</label>
+        <select formControlName="role">
+            <option value="">Select Role</option>
+            <option value="admin">Admin</option>
+            <option value="manager">Manager</option>
+            <option value="employee">Employee</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="jobTitle">Job Title</label>
+        <input type="text" formControlName="jobTitle" placeholder="Enter job title">
+    </div>
+    <div class="form-group">
+        <label for="joinedDate">Joined Date</label>
+        <input formControlName="joinedAt" type="date">
+    </div>
+    <button class="submit-btn" type="submit" [disabled]="!addEditEmployeeForm.valid">
+         {{ isEditMode() ? 'Update Employee' : 'Add Employee' }}
+    </button>
+</form>
+</div>

@@ -1,3 +1,11 @@
-Welcome {{ user()?.full_name }}
-
-<button type="button" (click)="logout()">Logout</button>
+<nav class="navbar">
+  <div class="navbar-brand">
+    <span class="brand-icon">👥</span>
+    <span class="brand-name">EMS</span>
+  </div>
+  
+  <div class="navbar-right">
+    <span class="welcome-text">Welcome, {{ user()?.full_name }}</span>
+    <button class="logout-btn" (click)="logout()">Logout</button>
+  </div>
+</nav>

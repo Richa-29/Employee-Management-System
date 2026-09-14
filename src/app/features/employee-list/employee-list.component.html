@@ -1,5 +1,7 @@
 Search: <input [formControl]="searchInput">
 
+<button type="button" (click)="addNewEmployee()">Add New Employee</button>
+
 @if (isLoading()) {
   <p>Loading...</p>
 } @else if (error()) {

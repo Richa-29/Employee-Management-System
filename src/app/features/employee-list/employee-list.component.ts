@@ -76,6 +76,10 @@ export class EmployeeListComponent {
     viewEmployee(employee: Employee) {
         this.router.navigate(['/shell/employees', employee.id])
     }
+
+    addNewEmployee() {
+        this.router.navigate(['/shell/employees/add']);
+    }
 }
 
 

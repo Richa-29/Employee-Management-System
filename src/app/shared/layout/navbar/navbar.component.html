@@ -1,11 +1,11 @@
 <nav class="navbar">
   <div class="navbar-brand">
     <span class="brand-icon">👥</span>
-    <span class="brand-name">EMS</span>
+    <span class="brand-name" (click)="goToDashboard()">EMS</span>
   </div>
   
   <div class="navbar-right">
-    <span class="welcome-text">Welcome, {{ user()?.full_name }}</span>
+    <span class="welcome-text">Welcome, {{ user()?.fullName }}</span>
     <button class="logout-btn" (click)="logout()">Logout</button>
   </div>
 </nav>

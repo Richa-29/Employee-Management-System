@@ -14,15 +14,20 @@ Search: <input [formControl]="searchInput">
         <th>Email</th>
         <th>Role</th>
         <th>Department</th>
+        <th>Take Actions</th>
       </tr>
     </thead>
     <tbody>
       @for (emp of isSearching() ? filteredEmployees() : employees(); track emp.id) {
         <tr (click)="viewEmployee(emp)">
-          <td>{{ emp.full_name }}</td>
+          <td>{{ emp.fullName }}</td>
           <td>{{ emp.email }}</td>
           <td>{{ emp.role }}</td>
-          <td>{{ emp.departments?.name }}</td>
+          <td>{{ emp.department?.name }}</td>
+          <td>
+            <button type="button" (click)="goToEditEmployee(emp.id); $event.stopPropagation()">Edit Employee</button>
+            <button type="button" (click)="deleteEmployee(emp.id); $event.stopPropagation()">Delete Employee</button>
+          </td>
         </tr>
       }
     </tbody>

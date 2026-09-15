@@ -14,6 +14,10 @@ export class NavbarComponent {
     private router = inject(Router);
     user = this.authService.user;
 
+    goToDashboard() {
+        this.router.navigate(['/shell/employees']);
+    }
+
     async logout() {
         await this.authService.logout();
         this.router.navigate(['']);

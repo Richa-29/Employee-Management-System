@@ -49,4 +49,19 @@ export class EmployeeDetailComponent implements OnInit{
     editEmployee() {
         this.router.navigate(['shell/employees/', this.employee()?.id ,'edit'])
     }
+
+    deleteEmployee() {
+        const id = this.employee()?.id;
+        if (!id) return;
+        this.employeeService.deleteEmployee(id).pipe(
+            takeUntilDestroyed(this.destroyedRef)
+        ).subscribe({
+            next: () => {
+                this.router.navigate(['/shell/employees']);
+            },
+            error: (err) => {
+                console.error('Delete failed', err);
+            }
+        });
+    }
 }

@@ -3,12 +3,13 @@
 } @else if (error()) {
     <p>...Error</p>
 } @else if (employee()) {
-   <h2>{{ employee()!.full_name }}</h2>
+   <h2>{{ employee()!.fullName }}</h2>
     <p>Email: {{ employee()!.email }}</p>
     <p>Role: {{ employee()!.role }}</p>
-    <p>Department: {{ employee()!.departments?.name }}</p>
-    <p>Job Title: {{ employee()!.job_title ?? 'N/A' }}</p>
-    <p>Joined: {{ employee()!.joined_at }}</p>
+    <p>Department: {{ employee()!.department?.name }}</p>
+    <p>Job Title: {{ employee()!.jobTitle ?? 'N/A' }}</p>
+    <p>Joined: {{ employee()!.joinedAt }}</p>
 }
 
-<button (click)="editEmployee()">Edit Employee</button>
+<button type="button" (click)="editEmployee()">Edit Employee</button>
+<button type="button" (click)="deleteEmployee()">Delete Employee</button>

@@ -4,9 +4,8 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { Department } from "../../core/models/department.model";
 import { DepartmentService } from "../../core/services/department.service";
 import { EmployeeService } from "../../core/services/employee.service";
-import { email } from "@angular/forms/signals";
 import { Employee } from "../../core/models/employee.model";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
     selector: 'add-edit-employee',
@@ -22,6 +21,7 @@ export class AddEditEmployeeComponent implements OnInit{
     private employeeService = inject(EmployeeService);
     private destroyRef = inject(DestroyRef);
     private router = inject(Router);
+    private activatedRoute = inject(ActivatedRoute);
 
     departments =  signal<Department[]>([]);
     isEditMode = signal<boolean>(false);
@@ -43,21 +43,52 @@ export class AddEditEmployeeComponent implements OnInit{
         .subscribe((response)=>{
             this.departments.set(response);
         });
+
+        const id = this.activatedRoute.snapshot.paramMap.get('id');
+        if(id) {
+            this.isEditMode.set(true);
+            this.employeeService.getEmployeeById(id).pipe(
+                takeUntilDestroyed(this.destroyRef)
+            ).subscribe((employee) => {
+                this.addEditEmployeeForm.patchValue({
+                    fullName: employee.fullName,
+                    email: employee.email,
+                    role: employee.role,
+                    department: employee.departmentId,
+                    jobTitle: employee.jobTitle,
+                    joinedAt: employee.joinedAt
+                });
+            })
+        }
+    }
+
+    mapEmployeeToApi(employee: Partial<Employee>): any {
+        return {
+            full_name: employee.fullName,
+            email: employee.email,
+            role: employee.role,
+            department_id: employee.departmentId,
+            job_title: employee.jobTitle,
+            joined_at: employee.joinedAt
+        };
     }
     
     submitForm() {
         if(this.addEditEmployeeForm.invalid) return;
         const form = this.addEditEmployeeForm.getRawValue();
         const formValue: Partial<Employee> = {
-            full_name: form.fullName ?? '',
+            fullName: form.fullName ?? '',
             email: form.email ?? '',
-            department_id: form.department ?? '',
+            departmentId: form.department ?? '',
             role: (form.role ?? 'employee') as 'admin' | 'manager' | 'employee',
-            job_title: form.jobTitle ?? '',
-            joined_at: form.joinedAt ?? ''
+            jobTitle: form.jobTitle ?? '',
+            joinedAt: form.joinedAt ?? ''
         }
-        console.log(formValue);
-        this.employeeService.addEmployee(formValue).pipe(
+        const payload = {
+            ...this.mapEmployeeToApi(formValue),
+            password: form.password ?? ''
+        };
+        this.employeeService.addEmployee(payload).pipe(
             takeUntilDestroyed(this.destroyRef)
         )
         .subscribe({

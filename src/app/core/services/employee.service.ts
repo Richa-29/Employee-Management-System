@@ -3,7 +3,7 @@ import { Employee } from '../models/employee.model';
 import { environment } from '../../../environments/environment';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { map, Observable } from "rxjs";
-import { Department } from "../models/department.model";
+import { mapEmployee } from "../mapper/employee.mapper";
 
 @Injectable({
     providedIn: 'root'
@@ -26,7 +26,7 @@ export class EmployeeService {
                 headers: this.headers.set('Range', `${from}-${to}`),
                 observe: 'response'
             }).pipe(map(response=>({
-                data: response.body ?? [],
+                data: response.body?.map(mapEmployee) ?? [],
                 count: parseInt(response.headers.get('content-range')?.split('/')[1] ?? '0')
             })));
     }
@@ -36,7 +36,7 @@ export class EmployeeService {
             `${this.baseUrl}/employees?id=eq.${id}&select=*,departments(name)`,
             { headers: this.headers }
       ).pipe(
-          map(data => data[0])
+          map(data => mapEmployee(data[0]))
       );
     }
 
@@ -52,6 +52,13 @@ export class EmployeeService {
         }
         );
     } 
+
+    deleteEmployee(id: string): Observable<void> {
+        return this.http.delete<void>(
+            `${this.baseUrl}/employees?id=eq.${id}`,
+            { headers: this.headers }
+        );
+    }
    
 
 }

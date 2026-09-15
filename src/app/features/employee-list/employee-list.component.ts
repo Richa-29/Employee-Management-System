@@ -1,10 +1,10 @@
-import { Component, inject, signal, ChangeDetectionStrategy, computed } from "@angular/core";
+import { Component, inject, signal, ChangeDetectionStrategy, computed, DestroyRef } from "@angular/core";
 import { EmployeeService } from '../../core/services/employee.service';
 import { Employee } from '../../core/models/employee.model';
-import { catchError, debounceTime, delay, distinctUntilChanged, forkJoin, interval, of, switchMap, timer } from "rxjs";
-import { HttpClient } from "@angular/common/http";
+import { debounceTime, distinctUntilChanged, switchMap } from "rxjs";
 import { FormControl, ReactiveFormsModule } from "@angular/forms";
 import { Router } from "@angular/router";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 
 @Component({
     selector: 'app-employee-list',
@@ -18,6 +18,7 @@ import { Router } from "@angular/router";
 export class EmployeeListComponent {
     private router = inject(Router);
     private employeeService = inject(EmployeeService);
+    private destroyRef = inject(DestroyRef);
   
     employees = signal<Employee[]>([]);
     filteredEmployees = signal<Employee[]>([]);
@@ -79,6 +80,23 @@ export class EmployeeListComponent {
 
     addNewEmployee() {
         this.router.navigate(['/shell/employees/add']);
+    }
+
+    goToEditEmployee(employeeId: string) {
+        this.router.navigate(['/shell/employees', employeeId, 'edit']);
+    }
+
+    deleteEmployee(employeeId: string) {
+        this.employeeService.deleteEmployee(employeeId).pipe(
+            takeUntilDestroyed(this.destroyRef)
+        ).subscribe({
+            next: () => {
+                this.getEmployees();
+            },
+            error: (err) => {
+                console.error('Delete failed', err);
+            }
+        });
     }
 }
 

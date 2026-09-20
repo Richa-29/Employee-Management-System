@@ -3,7 +3,7 @@ import { Employee } from '../models/employee.model';
 import { environment } from '../../../environments/environment';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { map, Observable } from "rxjs";
-import { mapEmployee } from "../mapper/employee.mapper";
+import { mapEmployee } from "../mapper/mapper";
 
 @Injectable({
     providedIn: 'root'

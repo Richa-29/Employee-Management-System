@@ -1,15 +1,25 @@
-<nav>
-    <a routerLink="/shell/dashboard">Dashboard</a>
-    @if (role() === 'admin') {
-        <a routerLink="/shell/employees">Employees</a>
-        <a routerLink="/shell/departments">Departments</a>
-        <a routerLink="/shell/leaves">Leave Management</a>
-        <a routerLink="/shell/reports">Reports</a>
-    } @else if (role() === 'manager') {
-        <a routerLink="/shell/team">My Team</a>
-        <a routerLink="/shell/leaves">Leave Approvals</a>
-    } @else if (role() === 'employee') {
-        <a routerLink="/shell/profile">My Profile</a>
-        <a routerLink="/shell/leaves">My Leaves</a>
+<div class="sidebar">
+  <nav class="nav-links">
+    <a routerLink="/shell/dashboard" routerLinkActive="active">
+      📊 Dashboard
+    </a>
+    <a routerLink="/shell/employees" routerLinkActive="active">
+      👥 Employees
+    </a>
+    <a routerLink="/shell/employees/leave/new" routerLinkActive="active">
+      📅 My Leaves
+    </a>
+
+    @if (role() === 'admin' || role() === 'manager') {
+      <a routerLink="/shell/employees/leave/approvals" routerLinkActive="active">
+        ✅ Approvals
+      </a>
     }
-</nav>
+
+    @if (role() === 'admin') {
+      <a routerLink="/shell/departments" routerLinkActive="active">
+        🏢 Departments
+      </a>
+    }
+  </nav>
+</div>

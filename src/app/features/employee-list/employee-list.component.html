@@ -1,43 +1,49 @@
-Search: <input [formControl]="searchInput">
-
-<button type="button" (click)="addNewEmployee()">Add New Employee</button>
-
-@if (isLoading()) {
-  <p>Loading...</p>
-} @else if (error()) {
-  <p>Error: {{ error() }}</p>
-} @else {
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Role</th>
-        <th>Department</th>
-        <th>Take Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      @for (emp of isSearching() ? filteredEmployees() : employees(); track emp.id) {
-        <tr (click)="viewEmployee(emp)">
-          <td>{{ emp.fullName }}</td>
-          <td>{{ emp.email }}</td>
-          <td>{{ emp.role }}</td>
-          <td>{{ emp.department?.name }}</td>
-          <td>
-            <button type="button" (click)="goToEditEmployee(emp.id); $event.stopPropagation()">Edit Employee</button>
-            <button type="button" (click)="deleteEmployee(emp.id); $event.stopPropagation()">Delete Employee</button>
-          </td>
-        </tr>
-      }
-    </tbody>
-  </table>
-
-  <div>
-    <button (click)="goToPage(currentPage()-1)"
-    [disabled]="currentPage()===1">Previous</button>
-    <span> {{ currentPage() }} of {{ totalPages() }} </span>
-    <button (click)="goToPage(currentPage()+1)"
-    [disabled]="currentPage()===totalPages()">Next</button>
+<div class="list-container">
+  <div class="list-header">
+    <h2>Employees</h2>
+    <div class="header-actions">
+      <input class="search-input" [formControl]="searchInput" placeholder="🔍 Search by name...">
+      <button class="add-btn" (click)="addNewEmployee()">+ Add Employee</button>
+    </div>
   </div>
-}
+
+  @if (isLoading()) {
+    <p>Loading...</p>
+  } @else if (error()) {
+    <p>Error: {{ error() }}</p>
+  } @else {
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Department</th>
+          <th>Take Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (emp of isSearching() ? filteredEmployees() : employees(); track emp.id) {
+          <tr (click)="viewEmployee(emp)">
+            <td>{{ emp.fullName }}</td>
+            <td>{{ emp.email }}</td>
+            <td>
+              <span class="role-badge {{ emp.role }}">{{ emp.role }}</span>
+            </td>
+            <td>{{ emp.department?.name }}</td>
+            <td class="action-btns">
+              <button class="edit-btn" (click)="goToEditEmployee(emp.id); $event.stopPropagation()">Edit</button>
+              <button class="delete-btn" (click)="deleteEmployee(emp.id); $event.stopPropagation()">Delete</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+
+    <div class="pagination">
+      <button (click)="goToPage(currentPage() - 1)" [disabled]="currentPage() === 1">← Prev</button>
+      <span>Page {{ currentPage() }} of {{ totalPages() }}</span>
+      <button (click)="goToPage(currentPage() + 1)" [disabled]="currentPage() === totalPages()">Next →</button>
+    </div>
+  }
+</div>

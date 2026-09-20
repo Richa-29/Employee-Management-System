@@ -17,7 +17,7 @@ export class EmployeeDetailComponent implements OnInit{
     private activatedRoute = inject(ActivatedRoute);
     private employeeService = inject(EmployeeService);
     private destroyedRef = inject(DestroyRef);
-    private router = inject(Router);
+    router = inject(Router);
 
     employee = signal<Employee | null>(null);
     isLoading = signal<boolean>(true);

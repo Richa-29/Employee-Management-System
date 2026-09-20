@@ -1,0 +1,39 @@
+<div class="approvals-container">
+  <h2>Leave Approvals</h2>
+
+  @if (isLoading()) {
+    <p>Loading...</p>
+  } @else if (leaves().length === 0) {
+    <p class="no-leaves">No pending leave requests.</p>
+  } @else {
+    <table>
+      <thead>
+        <tr>
+          <th>Employee</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Reason</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (leave of leaves(); track leave.id) {
+          <tr>
+            <td>{{ leave.employees }}</td>
+            <td>{{ leave.startDate | date: 'dd MMM yyyy' }}</td>
+            <td>{{ leave.endDate | date: 'dd MMM yyyy' }}</td>
+            <td>{{ leave.reason }}</td>
+            <td class="action-btns">
+              <button class="approve-btn" (click)="updateStatus(leave.id, 'approved')">
+                ✓ Approve
+              </button>
+              <button class="reject-btn" (click)="updateStatus(leave.id, 'rejected')">
+                ✗ Reject
+              </button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>

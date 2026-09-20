@@ -1,4 +1,4 @@
-@if (isLoading()) {
+<!-- @if (isLoading()) {
     <p>...Loading</p>
 } @else if (error()) {
     <p>...Error</p>
@@ -12,4 +12,49 @@
 }
 
 <button type="button" (click)="editEmployee()">Edit Employee</button>
-<button type="button" (click)="deleteEmployee()">Delete Employee</button>
+<button type="button" (click)="deleteEmployee()">Delete Employee</button> -->
+
+@if (isLoading()) {
+  <p>Loading...</p>
+} @else if (error()) {
+  <p>Error: {{ error() }}</p>
+} @else if (employee()) {
+  <div class="detail-container">
+    <div class="detail-header">
+      <div class="avatar">
+        {{ employee()!.fullName.charAt(0) }}
+      </div>
+      <div class="header-info">
+        <h2>{{ employee()!.fullName }}</h2>
+        <span class="role-badge">{{ employee()!.role }}</span>
+      </div>
+    </div>
+
+    <div class="detail-body">
+      <div class="info-grid">
+        <div class="info-item">
+          <label>Email</label>
+          <span>{{ employee()!.email }}</span>
+        </div>
+        <div class="info-item">
+          <label>Department</label>
+          <span>{{ employee()!.department?.name ?? 'N/A' }}</span>
+        </div>
+        <div class="info-item">
+          <label>Job Title</label>
+          <span>{{ employee()!.jobTitle ?? 'N/A' }}</span>
+        </div>
+        <div class="info-item">
+          <label>Joined</label>
+          <span>{{ employee()!.joinedAt }}</span>
+        </div>
+      </div>
+
+      <div class="action-btns">
+        <button class="back-btn" (click)="router.navigate(['/shell/employees'])">← Back</button>
+        <button class="edit-btn" (click)="editEmployee()">Edit Employee</button>
+        <button class="delete-btn" (click)="deleteEmployee()">Delete Employee</button>
+      </div>
+    </div>
+  </div>
+}

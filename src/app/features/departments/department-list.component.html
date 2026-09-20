@@ -1,0 +1,27 @@
+<div class="dept-container">
+  <div class="dept-header">
+    <h2>Departments</h2>
+    <div class="add-form">
+      <input 
+        [(ngModel)]="newDepartmentName" 
+        placeholder="Department name"
+        class="dept-input">
+      <button class="add-btn" (click)="addDepartment()">+ Add</button>
+    </div>
+  </div>
+
+  @if (isLoading()) {
+    <p>Loading...</p>
+  } @else if (departments().length === 0) {
+    <p>No departments found.</p>
+  } @else {
+    <div class="dept-list">
+      @for (dept of departments(); track dept.id) {
+        <div class="dept-card">
+          <span class="dept-name">🏢 {{ dept.name }}</span>
+          <button class="delete-btn" (click)="deleteDepartment(dept.id)">Delete</button>
+        </div>
+      }
+    </div>
+  }
+</div>

@@ -9,6 +9,7 @@ import { AddEditEmployeeComponent } from './features/add-edit-employee/add-edit-
 import { LeaveApplyComponent } from './features/leaves/leave-apply/leave-apply.component';
 import { ApproveLeaveComponent } from './features/leaves/leave-approvals/leave-approvals.component';
 import { roleGuard } from './core/guards/role.guard';
+import { DepartmentListComponent } from './features/departments/department-list.component';
 
 export const routes: Routes = [
    { path: '', component: LoginComponent },
@@ -28,6 +29,10 @@ export const routes: Routes = [
       { path: 'employees/leave/approvals', 
         component: ApproveLeaveComponent, 
         canActivate: [roleGuard(['admin', 'manager'])]
+      },
+      { path: 'departments',
+        component: DepartmentListComponent,
+        canActivate: [roleGuard(['admin'])]
       },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
      ]

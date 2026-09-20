@@ -1,29 +1,37 @@
-import { Injectable, inject } from "@angular/core";
+import { Injectable, inject } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Department } from '../models/department.model';
 import { environment } from '../../../environments/environment';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { map, Observable } from "rxjs";
-import { Department } from "../models/department.model";
 
-@Injectable({
-    providedIn: 'root'
-})
-
+@Injectable({ providedIn: 'root' })
 export class DepartmentService {
-    private baseUrl = `${environment.supabaseUrl}/rest/v1`;
-    private http = inject(HttpClient);
-    private headers = new HttpHeaders({
-        'apikey': environment.supabaseKey,
-        'Prefer': 'count=exact'
-    });
+  private http = inject(HttpClient);
+  private baseUrl = `${environment.supabaseUrl}/rest/v1`;
+  private headers = new HttpHeaders({
+    'apikey': environment.supabaseKey,
+    'Prefer': 'return=representation'
+  });
 
-    getDepartments(): Observable<Department[]> {
-        return this.http.get<Department[]>(`${this.baseUrl}/departments?select=*`, 
-            {
-                headers: this.headers,
-            }).pipe(
-                map(data=> data)
-            );
-    }   
-   
+  getDepartments(): Observable<Department[]> {
+    return this.http.get<Department[]>(
+      `${this.baseUrl}/departments?select=*&order=name.asc`,
+      { headers: this.headers }
+    );
+  }
 
+  addDepartment(name: string): Observable<Department> {
+    return this.http.post<Department>(
+      `${this.baseUrl}/departments`,
+      { name },
+      { headers: this.headers }
+    );
+  }
+
+  deleteDepartment(id: string): Observable<void> {
+    return this.http.delete<void>(
+      `${this.baseUrl}/departments?id=eq.${id}`,
+      { headers: this.headers }
+    );
+  }
 }

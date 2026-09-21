@@ -2,6 +2,7 @@ import { Injectable, signal, computed } from '@angular/core';
 import { SupabaseClientService } from '../supabase-client';
 import { Employee } from '../models/employee.model';
 import type { Session } from '@supabase/supabase-js';
+import { mapEmployee } from '../mapper/mapper';
 
 @Injectable({
   providedIn: 'root'
@@ -48,7 +49,7 @@ export class AuthService {
       .single();
 
     if (!error && data) {
-      this.currentEmployee.set(data as Employee);
+      this.currentEmployee.set(mapEmployee(data as Employee));
     }
   }
 

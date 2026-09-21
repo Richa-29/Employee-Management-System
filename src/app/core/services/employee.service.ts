@@ -59,6 +59,14 @@ export class EmployeeService {
             { headers: this.headers }
         );
     }
+
+    updateEmployee(id: string, data: any): Observable<Employee> {
+        return this.http.patch<Employee>(
+            `${this.baseUrl}/employees?id=eq.${id}`,
+            data,
+            { headers: this.headers.set('Prefer', 'return=representation') }
+        );
+    }
    
 
 }

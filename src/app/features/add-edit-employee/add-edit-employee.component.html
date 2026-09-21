@@ -10,16 +10,16 @@
         <label for="email">Email</label>
         <input id="email" type="text" formControlName="email" placeholder="Enter email">
 
-        <!-- @if (email?.invalid && (email?.dirty || email?.touched)) {
+        @if (addEditEmployeeForm.controls.email.invalid && (addEditEmployeeForm.controls.email.dirty || addEditEmployeeForm.controls.email.touched)) {
             <small style="color: red;">Please enter a valid email address.</small>
-        } -->
+        }
     </div>
-    <!-- @if (!isEditMode()) { -->
+    @if (!isEditMode()) {
          <div class="form-group">
             <label for="password">Password</label>
             <input id="password" type="password" formControlName="password" placeholder="Enter password">
          </div>
-    <!-- } -->
+    }
     <div class="form-group">
         <label for="department">Department</label>
         <select formControlName="department">
@@ -44,7 +44,11 @@
     </div>
     <div class="form-group">
         <label for="joinedDate">Joined Date</label>
-        <input formControlName="joinedAt" type="date">
+        <div class="date-input-wrapper">
+            <input class="date-input" [matDatepicker]="picker" formControlName="joinedAt" placeholder="Select date" readonly>
+            <mat-datepicker-toggle [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </div>
     </div>
     <button class="submit-btn" type="submit" [disabled]="!addEditEmployeeForm.valid">
          {{ isEditMode() ? 'Update Employee' : 'Add Employee' }}

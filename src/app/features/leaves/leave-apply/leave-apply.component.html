@@ -6,11 +6,21 @@
       <div class="form-row">
         <div class="form-group">
           <label>Start Date</label>
-          <input type="date" formControlName="startDate">
+          <div class="date-input-wrapper">
+            <input class="date-input" [matDatepicker]="startPicker" 
+             formControlName="startDate" placeholder="Select start date" readonly>
+            <mat-datepicker-toggle [for]="startPicker"></mat-datepicker-toggle>
+            <mat-datepicker #startPicker></mat-datepicker>
+          </div>
         </div>
         <div class="form-group">
           <label>End Date</label>
-          <input type="date" formControlName="endDate">
+          <div class="date-input-wrapper">
+            <input class="date-input" [matDatepicker]="endPicker" 
+             formControlName="endDate" placeholder="Select end date" readonly>
+            <mat-datepicker-toggle [for]="endPicker"></mat-datepicker-toggle>
+            <mat-datepicker #endPicker></mat-datepicker>
+          </div>
         </div>
       </div>
 

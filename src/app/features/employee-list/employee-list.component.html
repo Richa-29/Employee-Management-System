@@ -15,21 +15,39 @@
     <table>
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Role</th>
-          <th>Department</th>
+          <th (click)="sortTable('fullName')" style="cursor: pointer;">
+            Name
+            <span>{{ curentSortColumn === 'fullName' ? (isAscending() ? '▲' : '▼') : '' }}</span>
+          </th>
+          <th (click)="sortTable('email')" style="cursor: pointer;">
+            Email
+            <span>{{ curentSortColumn === 'email' ? (isAscending() ? '▲' : '▼') : '' }}</span>
+          </th>
+          <th (click)="sortTable('role')" style="cursor: pointer;">
+            Role
+            <span>{{ curentSortColumn === 'role' ? (isAscending() ? '▲' : '▼') : '' }}</span>
+          </th>
+          <th (click)="sortTable('jobTitle')" style="cursor: pointer;">
+            Job Title
+            <span>{{ curentSortColumn === 'jobTitle' ? (isAscending() ? '▲' : '▼') : '' }}</span>
+          </th>
+          <th (click)="sortTable('department')" style="cursor: pointer;">
+            Department
+            <span>{{ curentSortColumn === 'department' ? (isAscending() ? '▲' : '▼') : '' }}</span>
+          </th>
           <th>Take Actions</th>
         </tr>
       </thead>
       <tbody>
-        @for (emp of isSearching() ? filteredEmployees() : employees(); track emp.id) {
+        @if (filteredEmployees().length) {
+           @for (emp of isSearching() ? filteredEmployees() : employees(); track emp.id) {
           <tr (click)="viewEmployee(emp)">
             <td>{{ emp.fullName }}</td>
             <td>{{ emp.email }}</td>
             <td>
               <span class="role-badge {{ emp.role }}">{{ emp.role }}</span>
             </td>
+            <td>{{ emp.jobTitle }}</td>
             <td>{{ emp.department?.name }}</td>
             <td class="action-btns">
               <button class="edit-btn" (click)="goToEditEmployee(emp.id); $event.stopPropagation()">Edit</button>
@@ -37,13 +55,23 @@
             </td>
           </tr>
         }
+        } @else {
+          <tr>
+            <td colspan="5" class="no-results">
+              😔 No results found!
+            </td>
+          </tr>
+        }
+       
       </tbody>
     </table>
 
-    <div class="pagination">
+  @if (filteredEmployees().length) {
+     <div class="pagination">
       <button (click)="goToPage(currentPage() - 1)" [disabled]="currentPage() === 1">← Prev</button>
       <span>Page {{ currentPage() }} of {{ totalPages() }}</span>
       <button (click)="goToPage(currentPage() + 1)" [disabled]="currentPage() === totalPages()">Next →</button>
     </div>
+  } 
   }
 </div>

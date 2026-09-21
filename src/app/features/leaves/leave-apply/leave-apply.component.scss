@@ -73,6 +73,29 @@
         cursor: not-allowed;
       }
     }
+
+    .date-input-wrapper {
+      display: flex;
+      align-items: center;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 0 8px;
+      background: white;
+
+      &:focus-within {
+        border-color: #3f51b5;
+      }
+
+      .date-input {
+        flex: 1;
+        padding: 10px 4px;
+        border: none;
+        outline: none;
+        font-size: 14px;
+        cursor: pointer;
+        background: transparent;
+      }
+    }
   }
 
     .leaves-history {

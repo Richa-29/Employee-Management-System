@@ -29,6 +29,8 @@ export class EmployeeListComponent {
     pageSize = signal(10);
     totalCount = signal(0);
     totalPages = computed(() => Math.ceil(this.totalCount()/this.pageSize()));
+    curentSortColumn: string = '';
+    isAscending = signal<boolean>(true);
 
     searchInput = new FormControl<string>('', { nonNullable: true});
 
@@ -59,6 +61,7 @@ export class EmployeeListComponent {
         .subscribe({
             next: ({ data, count}) => {
                 this.employees.set(data);
+                this.filteredEmployees.set(data);
                 this.totalCount.set(count);
                 this.isLoading.set(false);
             },
@@ -97,6 +100,28 @@ export class EmployeeListComponent {
                 console.error('Delete failed', err);
             }
         });
+    }
+
+    sortTable(column: string) {
+        if(this.curentSortColumn === column) {
+            this.isAscending.update(isAsc => !isAsc);
+        } else {
+            this.curentSortColumn = column;
+            this.isAscending.set(true); 
+        }
+
+       this.employees.update(emps => [...emps].sort((a, b) => {
+            const val = this.isAscending() ? 1 : -1;
+            let valA = column === 'department' 
+            ? (a.department?.name ?? '') 
+            : (a[column as keyof Employee] ?? '');
+            
+            let valB = column === 'department' 
+            ? (b.department?.name ?? '') 
+            : (b[column as keyof Employee] ?? '');
+
+            return valA > valB ? val : -val;
+        }));
     }
 }
 

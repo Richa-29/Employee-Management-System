@@ -5,3 +5,15 @@
 } @else if(role() === 'employee') {
     <div>Employee Dashboard</div>
 }
+
+<div class="dashboard">
+  <h2>Dashboard</h2>
+  
+  <app-stats-card />
+  
+  <div class="charts-grid">
+    <app-dept-chart />
+    <app-role-chart />
+    <app-leaves-chart class="wide" />
+  </div>
+</div>

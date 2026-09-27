@@ -1,0 +1,33 @@
+<div class="stats-grid">
+  <div class="stat-card blue">
+    <div class="stat-icon">👥</div>
+    <div class="stat-info">
+      <span class="stat-value">{{ totalEmployees() ?? '...' }}</span>
+      <span class="stat-label">Total Employees</span>
+    </div>
+  </div>
+
+  <div class="stat-card purple">
+    <div class="stat-icon">🏢</div>
+    <div class="stat-info">
+      <span class="stat-value">{{ totalDepartments() ?? '...' }}</span>
+      <span class="stat-label">Departments</span>
+    </div>
+  </div>
+
+  <div class="stat-card orange">
+    <div class="stat-icon">⏳</div>
+    <div class="stat-info">
+      <span class="stat-value">{{ pendingLeaves() ?? '...' }}</span>
+      <span class="stat-label">Pending Leaves</span>
+    </div>
+  </div>
+
+  <div class="stat-card green">
+    <div class="stat-icon">👔</div>
+    <div class="stat-info">
+      <span class="stat-value">{{ totalManagers() ?? '...' }}</span>
+      <span class="stat-label">Managers</span>
+    </div>
+  </div>
+</div>

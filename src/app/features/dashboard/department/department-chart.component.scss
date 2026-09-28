@@ -1,0 +1,29 @@
+.chart-card {
+  background: white;
+  border-radius: 10px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+
+  h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 12px;
+    flex-shrink: 0;
+  }
+
+  canvas {
+    flex: 1;
+    max-height: 230px !important;
+  }
+
+  .error {
+    color: #999;
+    font-size: 14px;
+    text-align: center;
+    padding: 40px 0;
+  }
+}

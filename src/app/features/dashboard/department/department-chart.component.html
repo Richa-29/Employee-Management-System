@@ -1,0 +1,12 @@
+<div class="chart-card">
+  <h3>Employees by Department</h3>
+  @if (hasError()) {
+    <p class="error">Failed to load chart</p>
+  } @else {
+    <canvas baseChart
+      [data]="chartData()"
+      [options]="chartOptions"
+      type="pie">
+    </canvas>
+  }
+</div>

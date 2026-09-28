@@ -1,0 +1,12 @@
+<div class="chart-card">
+  <h3>Leave Requests by Month</h3>
+  @if (hasError()) {
+    <p class="error">Failed to load chart</p>
+  } @else {
+    <canvas baseChart
+      [data]="chartData()"
+      [options]="chartOptions"
+      type="line">
+    </canvas>
+  }
+</div>

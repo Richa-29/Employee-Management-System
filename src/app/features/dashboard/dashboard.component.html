@@ -1,19 +1,20 @@
-@if(role() === 'admin') {
- <div>Admin Dashboard</div>
-} @else if(role() === 'manager') {
-    <div>Manager Dashboard</div>
-} @else if(role() === 'employee') {
-    <div>Employee Dashboard</div>
-}
-
 <div class="dashboard">
   <h2>Dashboard</h2>
-  
-  <app-stats-card />
-  
-  <div class="charts-grid">
-    <app-dept-chart />
-    <app-role-chart />
-    <app-leaves-chart class="wide" />
-  </div>
+
+  @if (role() === 'admin') {
+    <app-stats-card />
+    <div class="charts-grid">
+      <app-dept-chart />
+      <app-role-chart />
+      <app-leaves-chart />
+    </div>
+  }
+
+  @if (role() === 'manager') {
+    <p>Manager Dashboard — coming soon</p>
+  }
+
+  @if (role() === 'employee') {
+    <p>Employee Dashboard — coming soon</p>
+  }
 </div>

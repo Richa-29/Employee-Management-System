@@ -12,6 +12,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 16px;
+    margin-top: 24px;
 
     app-leaves-chart {
       grid-column: span 2;

@@ -61,4 +61,11 @@ export class LeaveService {
             { headers: this.headers.set('Prefer', 'return=representation') }
         );
     }
+
+    getMyLeaveStats(employeeId: string): Observable<LeaveRequest[]> {
+        return this.http.get<LeaveRequest[]>(
+            `${this.baseUrl}/leave_requests?employee_id=eq.${employeeId}&select=*`,
+            { headers: new HttpHeaders({ 'apikey': environment.supabaseKey }) }
+        );
+    }
 }

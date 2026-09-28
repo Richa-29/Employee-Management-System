@@ -1,0 +1,19 @@
+<div class="emp-dashboard">
+ 
+  <div class="leave-stats">
+    <div class="leave-card pending">
+      <span class="count">{{ pendingCount() }}</span>
+      <span class="label">Pending Leaves</span>
+    </div>
+    <div class="leave-card approved">
+      <span class="count">{{ approvedCount() }}</span>
+      <span class="label">Approved Leaves</span>
+    </div>
+    <div class="leave-card rejected">
+      <span class="count">{{ rejectedCount() }}</span>
+      <span class="label">Rejected Leaves</span>
+    </div>
+  </div>
+
+  <a class="apply-btn" routerLink="/shell/employees/leave/new">+ Apply for Leave</a>
+</div>

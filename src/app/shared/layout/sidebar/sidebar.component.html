@@ -3,9 +3,11 @@
     <a routerLink="/shell/dashboard" routerLinkActive="active">
       📊 Dashboard
     </a>
-    <a routerLink="/shell/employees" routerLinkActive="active">
-      👥 Employees
-    </a>
+    @if (role() === 'admin' || role() === 'manager') {
+      <a routerLink="/shell/employees" routerLinkActive="active">
+        👥 Employees
+      </a>
+    }
     <a routerLink="/shell/employees/leave/new" routerLinkActive="active">
       📅 My Leaves
     </a>

@@ -42,6 +42,7 @@ export class ApproveLeaveComponent {
             ).subscribe({
                 next: (data) => {
                     this.leaves.set(data);
+                    console.log(this.leaves());
                     this.isLoading.set(false);
                 },
                 error: (err) => {

@@ -67,6 +67,13 @@ export class EmployeeService {
             { headers: this.headers.set('Prefer', 'return=representation') }
         );
     }
+
+    getEmployeesByDepartment(departmentId: string): Observable<Employee[]> {
+        return this.http.get<Employee[]>(
+            `${this.baseUrl}/employees?department_id=eq.${departmentId}&select=*`,
+            { headers: new HttpHeaders({ 'apikey': environment.supabaseKey }) }
+        );
+    }
    
 
 }

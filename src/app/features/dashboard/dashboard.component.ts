@@ -5,12 +5,13 @@ import { DepartmentChartComponent } from "./department/department-chart.componen
 import { RoleChartComponent } from "./role/role-chart.component";
 import { LeaveChartComponent } from "./leave/leave-chart.component";
 import { EmployeeDashboardComponent } from "./components/employee-dashboard/employee-dashboard.component";
+import { ManagerDashboardComponent } from "./components/manager-dashboard/manager-dashboard.component";
 
 @Component ({
     selector: 'app-dashboard',
     standalone: true,
     templateUrl: './dashboard.component.html',
-    imports: [StatsCardComponent, DepartmentChartComponent, RoleChartComponent, LeaveChartComponent, EmployeeDashboardComponent]
+    imports: [StatsCardComponent, DepartmentChartComponent, RoleChartComponent, LeaveChartComponent, EmployeeDashboardComponent, ManagerDashboardComponent]
 })
 
 export class DashboardComponent {

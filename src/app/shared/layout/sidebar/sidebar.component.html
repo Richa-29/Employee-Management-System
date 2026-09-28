@@ -3,7 +3,7 @@
     <a routerLink="/shell/dashboard" routerLinkActive="active">
       📊 Dashboard
     </a>
-    @if (role() === 'admin' || role() === 'manager') {
+    @if (role() === 'admin') {
       <a routerLink="/shell/employees" routerLinkActive="active">
         👥 Employees
       </a>

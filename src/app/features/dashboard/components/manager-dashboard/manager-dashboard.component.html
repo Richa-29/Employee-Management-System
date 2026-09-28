@@ -1,1 +1,25 @@
-<p>manager-dashboard works!</p>
+<div class="manager-dashboard">
+  <div class="stats-grid">
+    <div class="stat-card blue">
+      <span class="stat-icon">👥</span>
+      <div class="stat-info">
+        <span class="stat-value">{{ teamCount() }}</span>
+        <span class="stat-label">Team Members</span>
+      </div>
+    </div>
+
+    <div class="stat-card orange">
+      <span class="stat-icon">⏳</span>
+      <div class="stat-info">
+        <span class="stat-value">{{ pendingLeaves() }}</span>
+        <span class="stat-label">Pending Leave Requests</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="quick-links">
+    <a routerLink="/shell/employees/leave/approvals" class="link-btn">
+      ✅ Review Leave Requests
+    </a>
+  </div>
+</div>

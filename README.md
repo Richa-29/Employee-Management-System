@@ -14,7 +14,7 @@ https://employee-management-system-skgm.vercel.app/
 
 | Role | Email | Password |
 |------|-------|----------|
-| Admin | singhalricha40@gmail.com | Richa@supabase1 |
+| Admin | testadmin@example.com | Password123! |
 | Manager | employee1@testcompany.com | Password123! |
 | Employee | employee9@testcompany.com | Password123! |
 

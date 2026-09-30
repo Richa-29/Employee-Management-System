@@ -4,22 +4,22 @@
       📊 Dashboard
     </a>
     @if (role() === 'admin') {
-      <a routerLink="/shell/employees" routerLinkActive="active">
+      <a routerLink="/shell/employees" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
         👥 Employees
       </a>
     }
-    <a routerLink="/shell/employees/leave/new" routerLinkActive="active">
+    <a routerLink="/shell/employees/leave/new" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
       📅 My Leaves
     </a>
 
     @if (role() === 'admin' || role() === 'manager') {
-      <a routerLink="/shell/employees/leave/approvals" routerLinkActive="active">
+      <a routerLink="/shell/employees/leave/approvals" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
         ✅ Approvals
       </a>
     }
 
     @if (role() === 'admin') {
-      <a routerLink="/shell/departments" routerLinkActive="active">
+      <a routerLink="/shell/departments" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
         🏢 Departments
       </a>
     }

@@ -7,5 +7,5 @@ export interface LeaveRequest {
   status: 'pending' | 'approved' | 'rejected';
   reviewedBy: string | null;
   createdAt: string;
-  employees?: { fullName: string };
+  employees?: { fullName: string; departmentId: string } | null;
 }

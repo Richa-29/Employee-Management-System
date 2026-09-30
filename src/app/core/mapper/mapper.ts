@@ -25,6 +25,9 @@ export function mapLeave(data: any): LeaveRequest {
     endDate: data.end_date,
     reason: data.reason,
     status: data.status,
-    employees: data.employees?.full_name ?? null
+    employees: data.employees ? {
+      fullName: data.employees.full_name,
+      departmentId: data.employees.department_id
+    } : null
   };
 }

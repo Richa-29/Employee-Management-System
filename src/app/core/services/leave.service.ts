@@ -39,16 +39,18 @@ export class LeaveService {
             `${this.baseUrl}/leave_requests?status=eq.pending&order=created_at.desc&select=*,employees!leave_requests_employee_id_fkey(full_name)`,
             { headers: this.headers }
         ).pipe(
-            map(response => {
-                return response.map(mapLeave) ?? []
-            })
+            map(response => response.map(mapLeave) ?? [])
         )
     }
 
     getDepartmentLeaveRequests(departmentId: string): Observable<LeaveRequest[]> {
-        return this.http.get<LeaveRequest[]>(
+        return this.http.get<any[]>(
             `${this.baseUrl}/leave_requests?status=eq.pending&order=created_at.desc&select=*,employees!leave_requests_employee_id_fkey(full_name,department_id)`,
             { headers: new HttpHeaders({ 'apikey': environment.supabaseKey }) }
+        ).pipe(
+            map(data => data
+                .map(mapLeave)
+                .filter(l => l.employees?.departmentId === departmentId))
         );
     }
 

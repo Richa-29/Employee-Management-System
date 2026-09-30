@@ -24,12 +24,13 @@ export class ApproveLeaveComponent {
     ngOnInit() {
         const role = this.authService.role();
         const user = this.authService.user();
+        const currentUserId = this.authService.user()?.id;
         if (role === 'admin') {
             this.leaveService.getAllLeaveRequests().pipe(
                 takeUntilDestroyed(this.destroyRef)
             ).subscribe({
                 next: (data) => {
-                    this.leaves.set(data);
+                    this.leaves.set(data.filter(l => l.employeeId !== currentUserId));
                     this.isLoading.set(false);
                 },
                 error: (err) => {
@@ -41,8 +42,11 @@ export class ApproveLeaveComponent {
                 takeUntilDestroyed(this.destroyRef)
             ).subscribe({
                 next: (data) => {
-                    this.leaves.set(data);
-                    console.log(this.leaves());
+                    console.log('1', data);
+                    console.log(currentUserId);
+                    const test = data.filter(l => l.employeeId !== currentUserId);
+                    console.log('3', test);
+                    this.leaves.set(data.filter(l => l.employeeId !== currentUserId));
                     this.isLoading.set(false);
                 },
                 error: (err) => {

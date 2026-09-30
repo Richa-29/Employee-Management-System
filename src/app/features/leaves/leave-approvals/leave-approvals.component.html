@@ -19,7 +19,7 @@
       <tbody>
         @for (leave of leaves(); track leave.id) {
           <tr>
-            <td>{{ leave.employees }}</td>
+            <td>{{ leave.employees?.fullName }}</td>
             <td>{{ leave.startDate | date: 'dd MMM yyyy' }}</td>
             <td>{{ leave.endDate | date: 'dd MMM yyyy' }}</td>
             <td>{{ leave.reason }}</td>

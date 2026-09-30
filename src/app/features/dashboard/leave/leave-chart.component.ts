@@ -31,9 +31,9 @@ export class LeaveChartComponent {
         next: (data) => {
           const monthMap = new Map<string, number>();
           data.forEach((l: any) => {
-            const month = new Date(l.created_at)
-              .toLocaleString('default', { month: 'short', year: '2-digit' });
-            monthMap.set(month, (monthMap.get(month) ?? 0) + 1);
+            const date = new Date(l.created_at)
+              .toLocaleDateString('en-GB', { day: '2-digit', month: 'short' });
+            monthMap.set(date, (monthMap.get(date) ?? 0) + 1);
           });
           this.chartData.set({
             labels: [...monthMap.keys()],
